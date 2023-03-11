@@ -17,6 +17,16 @@
 
     <!-- main css for template -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        #chartdiv {
+          width: 100%;
+          height: 550px;
+          border-radius: 20px;
+          font-weight: 600;
+          font-family: math;
+        }
+        
+        </style>
 </head>
 
 <body>
@@ -164,13 +174,13 @@
 
 
     <!-- ================> Page header start here <================== -->
-    <section class="page-header bg--cover" style="background-image: url(assets/images/header/bg.jpg);">
+    <!-- <section class="page-header bg--cover" style="background-image: url(assets/images/header/bg.jpg);">
         <div class="container">
             <div class="page-header__content text-center">
                 <h2 class="text-uppercase"></h2>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- ================> Page header end here <================== -->
 
 
@@ -192,7 +202,7 @@
                         <a href="https://app.humble.sh/farm?id=1011495641" target="_blank" class="default-btn ">Swap/Buy on HumbleSwap</a>
                         <a href="https://vestige.fi/vault/1005994594" target="_blank" class="default-btn default-btn--secondary">Vestige Vault</a>
                         <a href="#watchtutorials" class="default-btn ">Watch Tutorials</a>
-
+                        <div id="chartdiv"></div>
                         <p style="text-align:justify">
                             
                             10% Team</br>
@@ -330,6 +340,62 @@
     <script src="assets/js/purecounter_vanilla.js"></script>
     <script src="assets/js/countdown.min.js"></script>
     <script src="assets/js/custom.js"></script>
+        <!-- Load the amCharts 4 core code -->
+        <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+
+        <!-- Load the amCharts 4 charts code -->
+        <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    
+        <!-- Load the amCharts 4 3D plugin code -->
+        <script src="https://cdn.amcharts.com/lib/4/plugins/3d.js"></script>
+    
+        <script>
+            // Create a new amCharts 4 chart
+            var chart = am4core.create("chartdiv", am4charts.PieChart3D);
+          
+            // Add the data to the chart
+            chart.data = [{
+              "token": "Team",
+              "percent": 10.0,
+              "color": am4core.color("#FF00FF")
+            }, {
+              "token": "Liquidity Pool",
+              "percent": 25.0,
+              "color": am4core.color("#7CFC00")
+            }, {
+              "token": "Marketing",
+              "percent": 5.0,
+              "color": am4core.color("#800000")
+            }, {
+              "token": "Project Development ",
+              "percent": 10.0,
+              "color": am4core.color("#00CED1")
+            }, {
+              "token": "Charitable Contribution",
+              "percent": 50.0
+              ,"color": am4core.color("#F1D302")
+            }, ];
+          
+            // Set the chart's inner radius
+            chart.innerRadius = am4core.percent(40);
+          
+            // Add the pie series to the chart
+            var pieSeries = chart.series.push(new am4charts.PieSeries3D());
+            pieSeries.dataFields.value = "percent";
+            pieSeries.dataFields.category = "token";
+          
+            // Set the pie slice labels to display both the category name and value
+            pieSeries.labels.template.text = "{category}: {value.percent.formatNumber('#.0')}%";
+            pieSeries.slices.template.propertyFields.fill = "color";
+            pieSeries.labels.template.fill = am4core.color("#FFFFFF");
+            
+            // Add a legend to the chart
+            chart.legend = new am4charts.Legend();
+            chart.legend.labels.template.fill = am4core.color("#FFFFFF");
+            chart.legend.valueLabels.template.fill = am4core.color("#FFFFFF");
+            chart.legend.markers.template.stroke = am4core.color("#FFFFFF");
+    
+          </script>
 </body>
 
 </html>
